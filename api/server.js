@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const fs = require('fs');
 const app = express();
 const PORT = 3000;
 
@@ -27,18 +26,18 @@ const patientSchema = new mongoose.Schema({
   currentTreatment: [String],
 });
 
-const Patient = mongoose.model('Patient', patientSchema);
+const Patient = mongoose.model('Patients', patientSchema);
 
 // GET request to fetch patients
-app.get('/patients', (req, res) => {
-  Patient.find({}, (error, patients) => {
-    if (error) {
-      console.error('Error fetching patients:', error);
-      res.status(500).json({ error: 'Error fetching patients' });
-    } else {
-      res.json(patients);
-    }
-  });
+app.get('/patients', async (req, res) => {
+  try {
+    const patients = await Patient.find({});
+    console.log(patients)
+    res.json(patients);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Starting the server
