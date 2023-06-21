@@ -1,0 +1,82 @@
+{
+    "users": [
+      {
+        "role": "admin",
+        "firstName": "Admin",
+        "lastName": "Doe",
+        "email": "admin@example.com",
+        "password": "admin123"
+      },
+      {
+        "role": "doctor",
+        "firstName": "John",
+        "lastName": "Smith",
+        "email": "john.smith@example.com",
+        "password": "doctor123"
+      },
+      {
+        "role": "doctor",
+        "firstName": "Jane",
+        "lastName": "Johnson",
+        "email": "jane.johnson@example.com",
+        "password": "doctor456"
+      },
+      {
+        "role": "doctor",
+        "firstName": "David",
+        "lastName": "Williams",
+        "email": "david.williams@example.com",
+        "password": "doctor789"
+      },
+      {
+        "role": "doctor",
+        "firstName": "Emily",
+        "lastName": "Brown",
+        "email": "emily.brown@example.com",
+        "password": "doctorabc"
+      },
+      {
+        "role": "doctor",
+        "firstName": "Daniel",
+        "lastName": "Taylor",
+        "email": "daniel.taylor@example.com",
+        "password": "doctorxyz"
+      },
+      {
+        "role": "hr",
+        "firstName": "Sarah",
+        "lastName": "Wilson",
+        "email": "sarah.wilson@example.com",
+        "password": "hr123"
+      },
+      {
+        "role": "hr",
+        "firstName": "Olivia",
+        "lastName": "Anderson",
+        "email": "olivia.anderson@example.com",
+        "password": "hr456"
+      },
+      {
+        "role": "hr",
+        "firstName": "Michael",
+        "lastName": "Thomas",
+        "email": "michael.thomas@example.com",
+        "password": "hr789"
+      },
+      {
+        "role": "hr",
+        "firstName": "Sophia",
+        "lastName": "Robinson",
+        "email": "sophia.robinson@example.com",
+        "password": "hrabc"
+      },
+      {
+        "role": "hr",
+        "firstName": "Matthew",
+        "lastName": "Hernandez",
+        "email": "matthew.hernandez@example.com",
+        "password": "hrxyz"
+      }
+    ]
+  }
+  
