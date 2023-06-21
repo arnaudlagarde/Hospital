@@ -1,38 +1,20 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import Header from './components/Header';
-import Content from './components/Content';
-import Footer from './components/Footer';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomePage from './components/HomePage';
+import PatientsScreen from './components/PatientsScreen';
+
+const Stack = createStackNavigator();
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
-
   return (
-    <View style={styles.container}>
-      <Header
-        isLoggedIn={isLoggedIn}
-        handleLogin={handleLogin}
-        handleLogout={handleLogout}
-      />
-      <Content />
-      <Footer />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomePage} />
+        <Stack.Screen name="Patients" component={PatientsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
 
 export default App;
