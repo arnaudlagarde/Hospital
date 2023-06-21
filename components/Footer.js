@@ -13,6 +13,9 @@ const Footer = () => {
 
 const styles = StyleSheet.create({
   footer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     padding: 16,
     backgroundColor: '#f0f0f0',
   },
