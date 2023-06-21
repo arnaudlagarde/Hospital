@@ -16,12 +16,17 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
     navigation.navigate('Connexion');
   }
 
+  const handleRegister = () => {
+    navigation.navigate('Inscription');
+  };
+
   return (
     <View>
       <Header
         isLoggedIn={isLoggedIn}
         handleLogin={handleLogin}
         handleLogout={handleLogout}
+        handleRegister={handleRegister}
       />
       <TouchableOpacity onPress={handleNavigatePatients}>
         <Text>Go to Patients List</Text>

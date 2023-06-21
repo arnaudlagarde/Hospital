@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const Header = ({ isLoggedIn, handleLogin, handleLogout }) => {
+const Header = ({ isLoggedIn, handleLogin, handleLogout, handleRegister }) => {
   return (
     <View style={styles.header}>
       <TouchableOpacity style={styles.headerButton} onPress={() => {}}>
@@ -13,6 +13,14 @@ const Header = ({ isLoggedIn, handleLogin, handleLogout }) => {
       >
         <Text style={styles.buttonText}>
           {isLoggedIn ? 'Déconnexion' : 'Connexion'}
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.headerButton}
+        onPress={handleRegister}
+      >
+        <Text style={styles.buttonText}>
+          {isLoggedIn ? null : 'Inscription'}
         </Text>
       </TouchableOpacity>
     </View>

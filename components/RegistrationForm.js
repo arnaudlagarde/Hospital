@@ -70,4 +70,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default AccountPage;
+export default RegistrationForm;
