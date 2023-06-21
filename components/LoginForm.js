@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { View, TextInput, Button, Alert } from 'react-native';
-import { Collapse } from 'react-native-bootstrap'; // Veuillez noter que la bibliothèque 'react-native-bootstrap' doit être installée et configurée correctement
+import { View, TextInput, Button, Alert, Text } from 'react-native';
 
 const LoginForm = ({ setUserData, setIsAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -81,15 +80,11 @@ const LoginForm = ({ setUserData, setIsAuthenticated }) => {
         required
       />
       <Button title="Envoyer" onPress={handleSubmit} />
-      <Collapse in={showMessage}>
+      {showMessage && (
         <View>
-          {error && (
-            <Alert variant='danger'>
-              {error}
-            </Alert>
-          )}
+          {error && <Text>{error}</Text>}
         </View>
-      </Collapse>
+      )}
     </View>
   );
 };

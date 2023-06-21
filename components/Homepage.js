@@ -5,12 +5,16 @@ import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
 
-const HomePage = ({ isLoggedIn, handleLogin, handleLogout }) => {
+const HomePage = ({ isLoggedIn, handleLogout }) => {
   const navigation = useNavigation();
 
   const handleNavigatePatients = () => {
     navigation.navigate('Patients');
   };
+
+  const handleLogin = () => {
+    navigation.navigate('Connexion');
+  }
 
   return (
     <View>
@@ -21,6 +25,9 @@ const HomePage = ({ isLoggedIn, handleLogin, handleLogout }) => {
       />
       <TouchableOpacity onPress={handleNavigatePatients}>
         <Text>Go to Patients List</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleLogin}>
+        <Text>Connect</Text>
       </TouchableOpacity>
       <Content />
       <Footer />
