@@ -43,39 +43,39 @@
         "password": "doctorxyz"
       },
       {
-        "role": "hr",
+        "role": "rh",
         "firstName": "Sarah",
         "lastName": "Wilson",
         "email": "sarah.wilson@example.com",
-        "password": "hr123"
+        "password": "rh123"
       },
       {
-        "role": "hr",
+        "role": "rh",
         "firstName": "Olivia",
         "lastName": "Anderson",
         "email": "olivia.anderson@example.com",
-        "password": "hr456"
+        "password": "rh456"
       },
       {
-        "role": "hr",
+        "role": "rh",
         "firstName": "Michael",
         "lastName": "Thomas",
         "email": "michael.thomas@example.com",
-        "password": "hr789"
+        "password": "rh789"
       },
       {
-        "role": "hr",
+        "role": "rh",
         "firstName": "Sophia",
         "lastName": "Robinson",
         "email": "sophia.robinson@example.com",
-        "password": "hrabc"
+        "password": "rhabc"
       },
       {
-        "role": "hr",
+        "role": "rh",
         "firstName": "Matthew",
         "lastName": "Hernandez",
         "email": "matthew.hernandez@example.com",
-        "password": "hrxyz"
+        "password": "rhxyz"
       }
     ]
   }
