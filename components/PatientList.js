@@ -12,6 +12,7 @@ const PatientList = () => {
   const [editedAge, setEditedAge] = useState('');
   const [editedWeight, setEditedWeight] = useState('');
   const [editedHeight, setEditedHeight] = useState('');
+  const [editedTreatment, setEditedTreatment] = useState('');
 
   useEffect(() => {
     fetchPatients();
@@ -33,6 +34,7 @@ const PatientList = () => {
     setEditedAge(patient.age.toString());
     setEditedWeight(patient.weight.toString());
     setEditedHeight(patient.height.toString());
+    setEditedTreatment(patient.currentTreatment);
     setIsModalVisible(true);
   };
 
@@ -44,6 +46,7 @@ const PatientList = () => {
         age: parseInt(editedAge),
         weight: parseInt(editedWeight),
         height: parseInt(editedHeight),
+        currentTreatment: editedTreatment,
       };
 
       await axios.put(`http://localhost:3000/patients/${editedPatient._id}`, updatedPatient);
@@ -61,6 +64,7 @@ const PatientList = () => {
         <Text style={styles.patientDetails}>Age: {item.age}</Text>
         <Text style={styles.patientDetails}>Weight: {item.weight} kg</Text>
         <Text style={styles.patientDetails}>Height: {item.height} cm</Text>
+        <Text style={styles.patientDetails}>Current Treatment: {item.currentTreatment}</Text> 
         <Button title="Edit" onPress={() => handleEditPatient(item)} />
       </View>
     );
@@ -113,6 +117,12 @@ const PatientList = () => {
             onChangeText={setEditedHeight}
             placeholder="Height (cm)"
             keyboardType="numeric"
+          />
+          <TextInput
+            style={styles.input}
+            value={editedTreatment}
+            onChangeText={setEditedTreatment}
+            placeholder="Current Treatment"
           />
           <Button title="Update" onPress={handleUpdatePatient} />
           <Button title="Cancel" onPress={() => setIsModalVisible(false)} />

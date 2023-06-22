@@ -5,6 +5,7 @@ import PatientForm from './PatientForm';
 
 const PatientsScreen = () => {
   const [patients, setPatients] = useState([]);
+  const [editedPatient, setEditedPatient] = useState(null);
 
   const handleAddPatient = (newPatient) => {
     setPatients([...patients, newPatient]);
@@ -15,8 +16,8 @@ const PatientsScreen = () => {
     setPatients(updatedPatients);
   };
 
-  const handleEditPatient = (patientId) => {
-    // Implémentez la fonctionnalité de modification du patient
+  const handleEditPatient = (patient) => {
+    setEditedPatient(patient);
   };
 
   return (
