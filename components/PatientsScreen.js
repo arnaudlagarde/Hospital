@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import PatientList from '../components/PatientList';
-import PatientForm from '../components/PatientForm';
+import PatientList from './PatientList';
+import PatientForm from './PatientForm';
 
 const PatientsScreen = () => {
   const [patients, setPatients] = useState([]);
