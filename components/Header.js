@@ -1,7 +1,15 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const Header = ({ isLoggedIn, handleLogin, handleLogout, handleRegister }) => {
+
+const Header = ({ isLoggedIn, setIsLoggedIn, handleLogin, handleRegister }) => {
+  console.log(isLoggedIn);
+  const handleLogout = () => {
+    // Effectuez les opérations de déconnexion nécessaires, par exemple, supprimer les données du localStorage
+    localStorage.removeItem('isAuthenticated');
+    setIsLoggedIn(false);
+  };
+  
   return (
     <View style={styles.header}>
       <TouchableOpacity style={styles.headerButton} onPress={() => {}}>
