@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, TouchableOpacity, Text, Picker } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 
 
@@ -8,31 +9,41 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [prenom, setPrenom] = useState('');
   const [nom, setNom] = useState('');
-  const [age, setAge] = useState('');
-  const [poids, setPoids] = useState('');
-  const [taille, setTaille] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('');
 
   const navigation = useNavigation();
 
-  const handleRegister = () => {
-    // Effectuez ici la logique d'inscription
+  const handleRegister = async () => {
     if (password === confirmPassword) {
-      // Inscription réussie
-      Alert.alert('Inscription', 'Inscription réussie !');
+      const data = {
+        role: role,
+        firstName: prenom,
+        lastName: nom,
+        email: email,
+        password: password,
+      };
+  
+      try {
+        const response = await axios.post('http://localhost:3000/users/admins', data);
+        console.log(response.data); // Affiche la réponse du serveur dans la console
+        Alert.alert('Inscription', 'Inscription réussie !');
+      } catch (error) {
+        console.error(error);
+        Alert.alert('Erreur', 'Une erreur s\'est produite lors de l\'inscription.');
+      }
     } else {
-      // Les mots de passe ne correspondent pas
       Alert.alert('Inscription', 'Les mots de passe ne correspondent pas !');
     }
   };
+  
 
   const handleLogin = () => {
    navigation.navigate('Connexion');
   };
 
-  const roles = ['Medecin', 'Patient', 'Administrateur', 'RH'];
+  const roles = ['Medecin', 'Administrateur', 'RH'];
 
   return (
     <View>
@@ -76,27 +87,6 @@ const RegistrationForm = () => {
           <Picker.Item label={role} value={role} key={index} />
         ))}
       </Picker>
-
-      {/* Afficher les champs supplémentaires uniquement pour le rôle "Patient" */}
-      {role === 'Patient' && (
-        <>
-          <TextInput
-            placeholder="Âge"
-            onChangeText={text => setAge(text)}
-            value={age}
-          />
-          <TextInput
-            placeholder="Taille"
-            onChangeText={text => setTaille(text)}
-            value={taille}
-          />
-          <TextInput
-            placeholder="Poids"
-            onChangeText={text => setPoids(text)}
-            value={poids}
-          />
-        </>
-      )}
 
       {/* Bouton d'inscription */}
       <Button title="S'inscrire" onPress={handleRegister} />

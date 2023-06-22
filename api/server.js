@@ -29,7 +29,19 @@ const patientSchema = new mongoose.Schema({
   currentTreatment: [String],
 });
 
+
+
 const Patients = mongoose.model('Patients', patientSchema);
+
+const adminSchema = new mongoose.Schema({
+  role: String,
+  firstName: String,
+  lastName: String,
+  email: String,
+  password: String,
+});
+
+const Admins = mongoose.model('Admins', adminSchema);
 
 // Schema and model for doctors
 const doctorSchema = new mongoose.Schema({
@@ -55,6 +67,31 @@ const RHs = mongoose.model('RHs', rhSchema);
 
 app.use(express.json());
 app.use(cors());
+
+// Create an admin
+app.post('/users/admins', async (req, res) => {
+  try {
+    const { role, firstName, lastName, email, password } = req.body;
+    const admin = new Admins({ role, firstName, lastName, email, password });
+    await admin.save();
+    res.json(admin);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Read all admins
+app.get('/users/admins', async (req, res) => {
+  try {
+    const admins = await Admins.find();
+    res.json(admins);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 // Create a patient
 app.post('/patients', async (req, res) => {
