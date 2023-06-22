@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, TouchableOpacity, Text, Picker } from 'react-native';
+import { View, TextInput, Button, Alert, TouchableOpacity, Text, Picker, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-
-
 
 const RegistrationForm = () => {
   const [email, setEmail] = useState('');
@@ -24,7 +22,7 @@ const RegistrationForm = () => {
         email: email,
         password: password,
       };
-  
+
       try {
         const response = await axios.post('http://localhost:3000/users/admins', data);
         console.log(response.data); // Affiche la réponse du serveur dans la console
@@ -37,50 +35,53 @@ const RegistrationForm = () => {
       Alert.alert('Inscription', 'Les mots de passe ne correspondent pas !');
     }
   };
-  
 
   const handleLogin = () => {
-   navigation.navigate('Connexion');
+    navigation.navigate('Connexion');
   };
 
   const roles = ['Medecin', 'Administrateur', 'RH'];
 
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
+        style={styles.input}
         placeholder="Prénom"
         onChangeText={text => setPrenom(text)}
         value={prenom}
       />
       <TextInput
+        style={styles.input}
         placeholder="Nom"
         onChangeText={text => setNom(text)}
         value={nom}
       />
       <TextInput
+        style={styles.input}
         placeholder="E-mail"
         onChangeText={text => setEmail(text)}
         value={email}
       />
       <TextInput
+        style={styles.input}
         placeholder="Mot de passe"
         secureTextEntry
         onChangeText={text => setPassword(text)}
         value={password}
       />
-      
-      {/* Champs supplémentaires pour l'inscription */}
+
       <TextInput
+        style={styles.input}
         placeholder="Confirmez le mot de passe"
         secureTextEntry
         onChangeText={text => setConfirmPassword(text)}
         value={confirmPassword}
       />
 
-      {/* Champ d'inscription pour le rôle avec liste déroulante */}
       <Picker
         selectedValue={role}
         onValueChange={itemValue => setRole(itemValue)}
+        style={styles.picker}
       >
         <Picker.Item label="Sélectionnez un rôle" value="" />
         {roles.map((role, index) => (
@@ -88,23 +89,42 @@ const RegistrationForm = () => {
         ))}
       </Picker>
 
-      {/* Bouton d'inscription */}
       <Button title="S'inscrire" onPress={handleRegister} />
 
-      {/* Déjà inscrit ? */}
       <TouchableOpacity onPress={handleLogin}>
-        <Text>Déjà inscrit ? Connectez-vous ici.</Text>
+        <Text style={styles.linkText}>Déjà inscrit ? Connectez-vous ici.</Text>
       </TouchableOpacity>
 
-      {/* Bouton de connexion */}
-      <Button title="Se connecter" onPress={handleLogin} />
-
-      {/* Mot de passe oublié */}
       <TouchableOpacity>
-        <Text>Mot de passe oublié ? Cliquez ici.</Text>
+        <Text style={styles.linkText}>Mot de passe oublié ? Cliquez ici.</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  input: {
+    height: 40,
+    width: '100%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingHorizontal: 8,
+  },
+  picker: {
+    width: '100%',
+    marginBottom: 16,
+  },
+  linkText: {
+    color: 'blue',
+    marginTop: 8,
+  },
+});
 
 export default RegistrationForm;
