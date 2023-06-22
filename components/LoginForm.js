@@ -17,48 +17,33 @@ const LoginForm = ({ setUserData, setIsAuthenticated }) => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-
+  
     try {
-      const response = await axios.get('http://localhost:3000/users/login', {
-        params: {
-          email: formData.email,
-          mot_de_passe: formData.mot_de_passe
-        }
+      const response = await axios.post('http://localhost:3000/users/admins/verify', {
+        email: formData.email,
+        password: formData.mot_de_passe
       });
-
-      const user = response.data;
-      console.log(user);
-      if (user) {
-        const userData = {
-          nom: user.nom,
-          prenom: user.prenom,
-          admin: user.admin
-        };
-        setUserData(userData);
-        setIsAuthenticated(true);
-
-        if (userData.admin) {
-          // Naviguez vers la page souhaitée
-        }
+  
+      const { success } = response.data;
+      if (success) {
+        // L'utilisateur est un administrateur
+        console.log('Vous êtes connecté !');
+        // Effectuez ici l'action souhaitée pour les administrateurs
       } else {
-        setUserData(null);
-        setIsAuthenticated(false);
-        setShowMessage(true);
-        setTimeout(() => {
-          setShowMessage(false);
-        }, 3000); // Temps en millisecondes (3 secondes)
+        // L'utilisateur n'est pas un administrateur ou les informations d'identification sont incorrectes
+        console.log('Email ou mot de passe incorrect.');
       }
     } catch (error) {
       console.log(error);
-      setError("Une erreur s'est produite lors de l'ajout de l'utilisateur.");
+      setError("Une erreur s'est produite lors de la vérification de l'utilisateur.");
       setShowMessage(true);
       setTimeout(() => {
         setShowMessage(false);
       }, 3000); // Temps en millisecondes (3 secondes)
     }
-
+  
     setIsLoading(false);
-  };
+  };  
 
   if (isLoading) {
     return <Text>Connexion en cours...</Text>;

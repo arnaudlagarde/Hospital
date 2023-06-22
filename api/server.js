@@ -92,6 +92,21 @@ app.get('/users/admins', async (req, res) => {
   }
 });
 
+app.post('/users/admins/verify', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const admin = await Admins.findOne({ email, password });
+    if (admin) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 // Create a patient
 app.post('/patients', async (req, res) => {
