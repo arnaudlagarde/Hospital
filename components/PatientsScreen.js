@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import PatientList from './PatientList';
-import PatientForm from './PatientForm';
 
 const PatientsScreen = () => {
   const [patients, setPatients] = useState([]);
   const [editedPatient, setEditedPatient] = useState(null);
+  const navigation = useNavigation();
 
   const handleAddPatient = (newPatient) => {
     setPatients([...patients, newPatient]);
@@ -20,14 +21,18 @@ const PatientsScreen = () => {
     setEditedPatient(patient);
   };
 
+  const navigateToAddPatient = () => {
+    navigation.navigate('AddPatient');
+  };
+
   return (
     <View>
+      <Button title="Create a new patient" onPress={navigateToAddPatient} />
       <PatientList
         patients={patients}
         onDeletePatient={handleDeletePatient}
         onEditPatient={handleEditPatient}
       />
-      <PatientForm onSubmit={handleAddPatient} />
     </View>
   );
 };

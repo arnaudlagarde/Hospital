@@ -3,8 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomePage from './components/Homepage';
 import PatientsScreen from './components/PatientsScreen';
-import LoginForm from './components/LoginForm' ;
+import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
+import AddPatient from './components/AddPatient';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ const App = () => {
         <Stack.Screen name="Patients" component={PatientsScreen} />
         <Stack.Screen name="Connexion" component={LoginForm} />
         <Stack.Screen name="Inscription" component={RegistrationForm} />
+        <Stack.Screen name="AddPatient" component={AddPatient} />
       </Stack.Navigator>
     </NavigationContainer>
   );
