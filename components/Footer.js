@@ -13,7 +13,7 @@ const Footer = () => {
             Localisation : 1234 Rue de l'Hôpital, 12345 Brive-la-Gaillarde, Corrèze,  France
           </Text>
           <Text style={styles.footerText}>
-            Informations complémentaires : Back office de l'hôpital déstiné aux RH, médecins et administrateurs de ces derniers.
+            Informations complémentaires : Le back office de l'hôpital est destiné aux RH, aux médecins et aux administrateurs de ces derniers.
           </Text>
         </View>
         <Text style={styles.copyRightText}>
