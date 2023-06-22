@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Header from './Header';
 import Content from './Content';
@@ -14,30 +14,37 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
 
   const handleLogin = () => {
     navigation.navigate('Connexion');
-  }
+  };
 
   const handleRegister = () => {
     navigation.navigate('Inscription');
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Header
         isLoggedIn={isLoggedIn}
         handleLogin={handleLogin}
         handleLogout={handleLogout}
         handleRegister={handleRegister}
       />
-      <TouchableOpacity onPress={handleNavigatePatients}>
-        <Text>Go to Patients List</Text>
-      </TouchableOpacity>
+    
       <TouchableOpacity onPress={handleLogin}>
         <Text>Connect</Text>
       </TouchableOpacity>
       <Content />
+      <TouchableOpacity onPress={handleNavigatePatients}>
+        <Text>Go to Patients List</Text>
+      </TouchableOpacity>
       <Footer />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default HomePage;

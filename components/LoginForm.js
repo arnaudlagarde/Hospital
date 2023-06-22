@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { View, TextInput, Button, Alert, Text } from 'react-native';
+import { View, TextInput, Button, Alert, Text, StyleSheet } from 'react-native';
 
 const LoginForm = ({ setUserData, setIsAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -17,13 +17,13 @@ const LoginForm = ({ setUserData, setIsAuthenticated }) => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-  
+
     try {
       const response = await axios.post('http://localhost:3000/users/admins/verify', {
         email: formData.email,
         password: formData.mot_de_passe
       });
-  
+
       const { success, role, firstName, lastName } = response.data;
       if (success) {
         // L'utilisateur est un administrateur
@@ -46,37 +46,70 @@ const LoginForm = ({ setUserData, setIsAuthenticated }) => {
         setShowMessage(false);
       }, 3000); // Temps en millisecondes (3 secondes)
     }
-  
+
     setIsLoading(false);
-  };  
+  };
 
   if (isLoading) {
-    return <Text>Connexion en cours...</Text>;
+    return <Text style={styles.loadingText}>Connexion en cours...</Text>;
   }
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Bienvenue dans le back-office</Text>
       <TextInput
+        style={styles.input}
         placeholder="Email"
         value={formData.email}
-        onChangeText={text => handleChange('email', text)}
+        onChangeText={(text) => handleChange('email', text)}
         required
       />
       <TextInput
+        style={styles.input}
         placeholder="Mot de passe"
         secureTextEntry
         value={formData.mot_de_passe}
-        onChangeText={text => handleChange('mot_de_passe', text)}
+        onChangeText={(text) => handleChange('mot_de_passe', text)}
         required
       />
       <Button title="Envoyer" onPress={handleSubmit} />
       {showMessage && (
-        <View>
-          {error && <Text>{error}</Text>}
+        <View style={styles.messageContainer}>
+          {error && <Text style={styles.errorMessage}>{error}</Text>}
         </View>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 24,
+  },
+  input: {
+    height: 40,
+    width: '80%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingHorizontal: 8,
+  },
+  loadingText: {
+    textAlign: 'center',
+  },
+  messageContainer: {
+    marginTop: 12,
+  },
+  errorMessage: {
+    color: 'red',
+  },
+});
 
 export default LoginForm;
