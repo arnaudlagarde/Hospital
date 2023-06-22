@@ -28,6 +28,7 @@ const RegistrationForm = () => {
         const response = await axios.post('http://localhost:3000/users/admins', data);
         console.log(response.data); // Affiche la réponse du serveur dans la console
         Alert.alert('Inscription', 'Inscription réussie !');
+        navigation.navigate('Home');
       } catch (error) {
         console.error(error);
         Alert.alert('Erreur', 'Une erreur s\'est produite lors de l\'inscription.');

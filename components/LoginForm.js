@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { View, TextInput, Button, Alert, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 const LoginForm = ({ setUserData, setIsAuthenticated }) => {
+  const navigation = useNavigation();
+
   const [formData, setFormData] = useState({
     email: '',
     mot_de_passe: ''
@@ -34,6 +38,9 @@ const LoginForm = ({ setUserData, setIsAuthenticated }) => {
         localStorage.setItem('role', role); // Enregistrez le rôle réel de l'utilisateur
         localStorage.setItem('nom', lastName);
         localStorage.setItem('prenom', firstName);
+
+        // Redirection vers la page d'accueil
+        navigation.navigate('Home');
       } else {
         // L'utilisateur n'est pas un administrateur ou les informations d'identification sont incorrectes
         console.log('Email ou mot de passe incorrect.');

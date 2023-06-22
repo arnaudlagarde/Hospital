@@ -9,11 +9,21 @@ const HomePage = () => {
   const navigation = useNavigation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [userFirstName, setUserFirstName] = useState('');
   
   useEffect(() => {
     // Vérifiez si l'utilisateur est connecté lors du chargement du composant
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    const isAuthenticated = localStorage.getItem('isAuthenticated');
     setIsLoggedIn(isAuthenticated);
+    const storedName = localStorage.getItem('nom'); // Récupérer le nom depuis le localStorage
+    if (storedName) {
+      setUserName(storedName); // Stocker le nom dans l'état
+    }
+    const storedFirstName = localStorage.getItem('prenom');
+    if (storedFirstName) {
+      setUserFirstName(storedFirstName);
+    }
   }, []);
 
   const handleNavigatePatients = () => {
@@ -32,13 +42,14 @@ const HomePage = () => {
     <View style={styles.container}>
       <Header
         isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
         handleLogin={handleLogin}
         handleRegister={handleRegister}
       />
-    
-      <TouchableOpacity onPress={handleLogin}>
-        <Text>Connect</Text>
-      </TouchableOpacity>
+      {isLoggedIn && userName && (
+        <Text style={styles.heading}>Bonjour {userName} {userFirstName}</Text>
+      )}
+
       <Content />
       
       {isLoggedIn && (
@@ -54,6 +65,12 @@ const HomePage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center',
   },
 });
 
