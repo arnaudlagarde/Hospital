@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text,StyleSheet } from 'react-native';
 
 const Content = () => {
   return (
@@ -35,7 +35,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#666',
     marginBottom: 12,
+    fontWeight: 'bold',
   },
+
 });
 
 export default Content;

@@ -1,13 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Linking, StyleSheet } from 'react-native';
 
 const Footer = () => {
+  const phoneNumber = '0155432665'; // Replace with your desired phone number
+
+  const handlePhoneNumberPress = () => {
+    Linking.openURL(`tel:${phoneNumber}`);
+  };
+  
   return (
     <View style={styles.container}>
       <View style={styles.footer}>
         <View style={styles.footerContent}>
-          <Text style={styles.footerText}>
-            Téléphone : +1 123 456 789
+          <Text style={styles.footerTextphone} onPress={handlePhoneNumberPress}>
+            Téléphone : {phoneNumber}
           </Text>
           <Text style={styles.footerText}>
             Localisation : 1234 Rue de l'Hôpital, 12345 Brive-la-Gaillarde, Corrèze,  France
@@ -45,6 +51,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#333',
     marginBottom: 8,
+  },
+  footerTextphone: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 8,
+    fontWeight: 'bold',
   },
   copyRightText: {
     fontSize: 12,
