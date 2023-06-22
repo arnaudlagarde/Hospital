@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+
 import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
 
-const HomePage = () => {
+
+const HomePage = ({route}) => {
   const navigation = useNavigation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
   const [userFirstName, setUserFirstName] = useState('');
-  
+
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     // Vérifiez si l'utilisateur est connecté lors du chargement du composant
     const isAuthenticated = localStorage.getItem('isAuthenticated');
@@ -24,7 +28,9 @@ const HomePage = () => {
     if (storedFirstName) {
       setUserFirstName(storedFirstName);
     }
-  }, []);
+
+
+  }, [isFocused]);
 
   const handleNavigatePatients = () => {
     navigation.navigate('Patients');
