@@ -6,8 +6,7 @@ import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
 
-
-const HomePage = ({route}) => {
+const HomePage = ({ route }) => {
   const navigation = useNavigation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,8 +27,6 @@ const HomePage = ({route}) => {
     if (storedFirstName) {
       setUserFirstName(storedFirstName);
     }
-
-
   }, [isFocused]);
 
   const handleNavigatePatients = () => {
@@ -48,10 +45,10 @@ const HomePage = ({route}) => {
     <View style={styles.container}>
       <Image
         source={require('../assets/hospital.jpg')}
-        style={styles.backgroundImage}/>
-      
+        style={[styles.backgroundImage, { opacity: 0.4 }]} // Modifier l'opacité ici
+      />
+
       <Header
-      
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         handleLogin={handleLogin}
@@ -62,11 +59,11 @@ const HomePage = ({route}) => {
       )}
 
       <Content />
-      
+
       {isLoggedIn && (
-      <TouchableOpacity onPress={handleNavigatePatients}>
-        <Text style={styles.patient } >Voir la liste des patients</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={handleNavigatePatients}>
+          <Text style={styles.patient}>Voir la liste des patients</Text>
+        </TouchableOpacity>
       )}
       <Footer />
     </View>
@@ -76,16 +73,14 @@ const HomePage = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
   },
-  patient:{
-    left: '22%', 
+  patient: {
+    left: '22%',
     right: '50%',
     justifyContent: 'center',
     fontWeight: 'bold',
-    fontSize:18,
+    fontSize: 18,
     textDecorationLine: 'underline',
-
   },
   backgroundImage: {
     flex: 1,
@@ -93,7 +88,6 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
     position: 'absolute',
-    backgroundColor: 'rgba(0, 0, 0, 0.80)', // Customize the overlay color and transparency
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
