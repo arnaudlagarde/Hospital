@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
 
-const HomePage = ({ isLoggedIn, handleLogout }) => {
+const HomePage = (handleLogout) => {
   const navigation = useNavigation();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
 
   const handleNavigatePatients = () => {
     navigation.navigate('Patients');
@@ -33,6 +36,7 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
         <Text>Connect</Text>
       </TouchableOpacity>
       <Content />
+      
       <TouchableOpacity onPress={handleNavigatePatients}>
         <Text>Voir la liste des patients</Text>
       </TouchableOpacity>

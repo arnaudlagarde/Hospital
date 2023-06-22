@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, TouchableOpacity, Text, Picker, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Alert, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { Picker } from '@react-native-picker/picker'
 
 const RegistrationForm = () => {
   const [email, setEmail] = useState('');
