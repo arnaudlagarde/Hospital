@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, Button, Alert, TouchableOpacity, Text, Picker } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+
 
 const RegistrationForm = () => {
   const [email, setEmail] = useState('');
+  const [prenom, setPrenom] = useState('');
+  const [nom, setNom] = useState('');
+  const [age, setAge] = useState('');
+  const [poids, setPoids] = useState('');
+  const [taille, setTaille] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [role, setRole] = useState('');
+
+  const navigation = useNavigation();
 
   const handleRegister = () => {
     // Effectuez ici la logique d'inscription
@@ -18,19 +29,23 @@ const RegistrationForm = () => {
   };
 
   const handleLogin = () => {
-    // Effectuez ici la logique de connexion
-    // Validez l'e-mail et le mot de passe
-    if (email && password) {
-      // Connexion réussie
-      Alert.alert('Connexion', 'Connexion réussie !');
-    } else {
-      // Identifiants invalides
-      Alert.alert('Connexion', 'E-mail ou mot de passe invalide !');
-    }
+   navigation.navigate('Connexion');
   };
+
+  const roles = ['Medecin', 'Patient', 'Administrateur', 'RH'];
 
   return (
     <View>
+      <TextInput
+        placeholder="Prénom"
+        onChangeText={text => setPrenom(text)}
+        value={prenom}
+      />
+      <TextInput
+        placeholder="Nom"
+        onChangeText={text => setNom(text)}
+        value={nom}
+      />
       <TextInput
         placeholder="E-mail"
         onChangeText={text => setEmail(text)}
@@ -50,6 +65,38 @@ const RegistrationForm = () => {
         onChangeText={text => setConfirmPassword(text)}
         value={confirmPassword}
       />
+
+      {/* Champ d'inscription pour le rôle avec liste déroulante */}
+      <Picker
+        selectedValue={role}
+        onValueChange={itemValue => setRole(itemValue)}
+      >
+        <Picker.Item label="Sélectionnez un rôle" value="" />
+        {roles.map((role, index) => (
+          <Picker.Item label={role} value={role} key={index} />
+        ))}
+      </Picker>
+
+      {/* Afficher les champs supplémentaires uniquement pour le rôle "Patient" */}
+      {role === 'Patient' && (
+        <>
+          <TextInput
+            placeholder="Âge"
+            onChangeText={text => setAge(text)}
+            value={age}
+          />
+          <TextInput
+            placeholder="Taille"
+            onChangeText={text => setTaille(text)}
+            value={taille}
+          />
+          <TextInput
+            placeholder="Poids"
+            onChangeText={text => setPoids(text)}
+            value={poids}
+          />
+        </>
+      )}
 
       {/* Bouton d'inscription */}
       <Button title="S'inscrire" onPress={handleRegister} />
