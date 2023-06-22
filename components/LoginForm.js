@@ -24,11 +24,16 @@ const LoginForm = ({ setUserData, setIsAuthenticated }) => {
         password: formData.mot_de_passe
       });
   
-      const { success } = response.data;
+      const { success, role, firstName, lastName } = response.data;
       if (success) {
         // L'utilisateur est un administrateur
         console.log('Vous êtes connecté !');
+        console.log(lastName + ' ' + role);
         // Effectuez ici l'action souhaitée pour les administrateurs
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('role', role); // Enregistrez le rôle réel de l'utilisateur
+        localStorage.setItem('nom', lastName);
+        localStorage.setItem('prenom', firstName);
       } else {
         // L'utilisateur n'est pas un administrateur ou les informations d'identification sont incorrectes
         console.log('Email ou mot de passe incorrect.');

@@ -97,7 +97,8 @@ app.post('/users/admins/verify', async (req, res) => {
     const { email, password } = req.body;
     const admin = await Admins.findOne({ email, password });
     if (admin) {
-      res.json({ success: true });
+      const { role, firstName, lastName } = admin;
+      res.json({ success: true, role, firstName, lastName });
     } else {
       res.json({ success: false });
     }
