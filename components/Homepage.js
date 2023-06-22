@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
 
-const HomePage = (handleLogout) => {
+const HomePage = () => {
   const navigation = useNavigation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
+  useEffect(() => {
+    // Vérifiez si l'utilisateur est connecté lors du chargement du composant
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    setIsLoggedIn(isAuthenticated);
+  }, []);
 
   const handleNavigatePatients = () => {
     navigation.navigate('Patients');
@@ -28,7 +33,6 @@ const HomePage = (handleLogout) => {
       <Header
         isLoggedIn={isLoggedIn}
         handleLogin={handleLogin}
-        handleLogout={handleLogout}
         handleRegister={handleRegister}
       />
     
@@ -37,9 +41,11 @@ const HomePage = (handleLogout) => {
       </TouchableOpacity>
       <Content />
       
+      {isLoggedIn && (
       <TouchableOpacity onPress={handleNavigatePatients}>
         <Text>Voir la liste des patients</Text>
       </TouchableOpacity>
+      )}
       <Footer />
     </View>
   );
