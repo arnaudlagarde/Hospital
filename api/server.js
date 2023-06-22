@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const PORT = 3000;
-require('dotenv').config(); // Charger les variables d'environnement
-
+require('dotenv').config(); // Load environment variables
 
 // Connection to MongoDB Atlas
 mongoose
@@ -24,8 +23,6 @@ const patientSchema = new mongoose.Schema({
   id: Number,
   firstName: String,
   lastName: String,
-  email: String,
-  password: String,
   age: Number,
   weight: Number,
   height: Number,
@@ -34,39 +31,15 @@ const patientSchema = new mongoose.Schema({
 
 const Patients = mongoose.model('Patients', patientSchema);
 
-const adminSchema = new mongoose.Schema({
-  role: String,
-  firstName: String,
-  lastName: String,
-  email: String,
-  password: String,
-});
-
-const Administrateurs = mongoose.model('Admin',adminSchema);
-
 app.use(express.json());
+app.use(cors());
 
-// POST request for API users/admins
-app.post('/users/admins', async (req, res) => {
-  try {
-    const { role, firstName, lastName, email, password } = req.body;
-    const admin = { role, firstName, lastName, email, password };
-    // Save admin to the database
-    // ...
-    res.json(admin);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// POST request for API users/patients
-app.post('/users/patients', async (req, res) => {
+// Create a patient
+app.post('/patients', async (req, res) => {
   try {
     const { id, firstName, lastName, age, weight, height, currentTreatment } = req.body;
-    const patient = { id, firstName, lastName, age, weight, height, currentTreatment };
-    // Save patient to the database
-    // ...
+    const patient = new Patients({ id, firstName, lastName, age, weight, height, currentTreatment });
+    await patient.save();
     res.json(patient);
   } catch (err) {
     console.error(err);
@@ -74,12 +47,61 @@ app.post('/users/patients', async (req, res) => {
   }
 });
 
-// GET request to fetch patients
+// Read all patients
 app.get('/patients', async (req, res) => {
   try {
-    const patients = await Patient.find({});
-    console.log(patients)
+    const patients = await Patients.find();
     res.json(patients);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Read a specific patient
+app.get('/patients/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const patient = await Patients.findOne({ id });
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+    res.json(patient);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Update a patient
+app.put('/patients/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { firstName, lastName, age, weight, height, currentTreatment } = req.body;
+    const updatedPatient = await Patients.findOneAndUpdate(
+      { id },
+      { firstName, lastName, age, weight, height, currentTreatment },
+      { new: true }
+    );
+    if (!updatedPatient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+    res.json(updatedPatient);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Delete a patient
+app.delete('/patients/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedPatient = await Patients.findOneAndDelete({ id });
+    if (!deletedPatient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+    res.json(deletedPatient);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
