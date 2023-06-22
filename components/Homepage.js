@@ -34,7 +34,7 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
       </TouchableOpacity>
       <Content />
       <TouchableOpacity onPress={handleNavigatePatients}>
-        <Text>Go to Patients List</Text>
+        <Text>Voir la liste des patients</Text>
       </TouchableOpacity>
       <Footer />
     </View>

@@ -27,7 +27,7 @@ const PatientsScreen = () => {
 
   return (
     <View>
-      <Button title="Create a new patient" onPress={navigateToAddPatient} />
+      <Button title="Créer un nouveau patient" onPress={navigateToAddPatient} />
       <PatientList
         patients={patients}
         onDeletePatient={handleDeletePatient}

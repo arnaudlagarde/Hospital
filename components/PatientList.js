@@ -60,19 +60,19 @@ const PatientList = () => {
   const renderPatientItem = ({ item }) => {
     return (
       <View style={styles.patientItem}>
-        <Text style={styles.patientName}>Name: {item.firstName} {item.lastName}</Text>
-        <Text style={styles.patientDetails}>Age: {item.age}</Text>
-        <Text style={styles.patientDetails}>Weight: {item.weight} kg</Text>
-        <Text style={styles.patientDetails}>Height: {item.height} cm</Text>
-        <Text style={styles.patientDetails}>Current Treatment: {item.currentTreatment}</Text> 
-        <Button title="Edit" onPress={() => handleEditPatient(item)} />
+        <Text style={styles.patientName}>Nom : {item.firstName} {item.lastName}</Text>
+        <Text style={styles.patientDetails}>Âge : {item.age}</Text>
+        <Text style={styles.patientDetails}>Poids : {item.weight} kg</Text>
+        <Text style={styles.patientDetails}>Taille : {item.height} cm</Text>
+        <Text style={styles.patientDetails}>Traitement du patient : {item.currentTreatment}</Text> 
+        <Button title="Modifier" onPress={() => handleEditPatient(item)} />
       </View>
     );
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>List of Patients</Text>
+      <Text style={styles.title}>Liste des Patients</Text>
       <FlatList
         data={patients}
         renderItem={renderPatientItem}
@@ -84,48 +84,48 @@ const PatientList = () => {
           <TouchableOpacity style={styles.closeButton} onPress={() => setIsModalVisible(false)}>
             <AntDesign name="close" size={24} color="#333" />
           </TouchableOpacity>
-          <Text style={styles.modalTitle}>Edit Patient</Text>
+          <Text style={styles.modalTitle}>Modifier le Patient</Text>
           <TextInput
             style={styles.input}
             value={editedFirstName}
             onChangeText={setEditedFirstName}
-            placeholder="First Name"
+            placeholder="Prénom"
           />
           <TextInput
             style={styles.input}
             value={editedLastName}
             onChangeText={setEditedLastName}
-            placeholder="Last Name"
+            placeholder="Nom"
           />
           <TextInput
             style={styles.input}
             value={editedAge}
             onChangeText={setEditedAge}
-            placeholder="Age"
+            placeholder="Âge"
             keyboardType="numeric"
           />
           <TextInput
             style={styles.input}
             value={editedWeight}
             onChangeText={setEditedWeight}
-            placeholder="Weight (kg)"
+            placeholder="Poids (kg)"
             keyboardType="numeric"
           />
           <TextInput
             style={styles.input}
             value={editedHeight}
             onChangeText={setEditedHeight}
-            placeholder="Height (cm)"
+            placeholder="Taille (cm)"
             keyboardType="numeric"
           />
           <TextInput
             style={styles.input}
             value={editedTreatment}
             onChangeText={setEditedTreatment}
-            placeholder="Current Treatment"
+            placeholder="Traitement en cours"
           />
-          <Button title="Update" onPress={handleUpdatePatient} />
-          <Button title="Cancel" onPress={() => setIsModalVisible(false)} />
+          <Button title="Mettre à jour" onPress={handleUpdatePatient} />
+          <Button title="Annuler" onPress={() => setIsModalVisible(false)} />
         </View>
       </Modal>
     </View>

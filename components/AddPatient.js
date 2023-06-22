@@ -11,9 +11,9 @@ const AddPatient = ({ onSubmit }) => {
   const [currentTreatment, setCurrentTreatment] = useState('');
 
   const handleAddPatient = async () => {
-    // Validate the input fields
+    // Valider les champs de saisie
     if (!firstName || !lastName || !age || !weight || !height || !currentTreatment) {
-      alert('Please fill in all the fields.');
+      alert('Veuillez remplir tous les champs.');
       return;
     }
 
@@ -27,14 +27,14 @@ const AddPatient = ({ onSubmit }) => {
     };
 
     try {
-      // Send a POST request to create a new patient
+      // Envoyer une requête POST pour créer un nouveau patient
       const response = await axios.post('http://localhost:3000/patients', newPatient);
       const createdPatient = response.data;
 
-      // Call the onSubmit function passed from the parent component
+      // Appeler la fonction onSubmit passée depuis le composant parent
       onSubmit(createdPatient);
 
-      // Clear the input fields after submission
+      // Vider les champs de saisie après la soumission
       setFirstName('');
       setLastName('');
       setAge('');
@@ -50,44 +50,44 @@ const AddPatient = ({ onSubmit }) => {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="First Name"
+        placeholder="Prénom"
         value={firstName}
         onChangeText={setFirstName}
       />
       <TextInput
         style={styles.input}
-        placeholder="Last Name"
+        placeholder="Nom"
         value={lastName}
         onChangeText={setLastName}
       />
       <TextInput
         style={styles.input}
-        placeholder="Age"
+        placeholder="Âge"
         value={age}
         onChangeText={setAge}
         keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
-        placeholder="Weight (kg)"
+        placeholder="Poids (kg)"
         value={weight}
         onChangeText={setWeight}
         keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
-        placeholder="Height (cm)"
+        placeholder="Taille (cm)"
         value={height}
         onChangeText={setHeight}
         keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
-        placeholder="Current Treatment"
+        placeholder="Traitement du patient"
         value={currentTreatment}
         onChangeText={setCurrentTreatment}
       />
-      <Button title="Add Patient" onPress={handleAddPatient} />
+      <Button title="Ajouter un patient" onPress={handleAddPatient} />
     </View>
   );
 };
