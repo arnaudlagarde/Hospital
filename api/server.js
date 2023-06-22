@@ -135,10 +135,10 @@ app.get('/patients/:id', async (req, res) => {
 // Update a patient
 app.put('/patients/:id', async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params; // Change to { _id } instead of { id }
     const { firstName, lastName, age, weight, height, currentTreatment } = req.body;
     const updatedPatient = await Patients.findOneAndUpdate(
-      { id },
+      { _id: id }, // Change to { _id: id } instead of { id }
       { firstName, lastName, age, weight, height, currentTreatment },
       { new: true }
     );
@@ -151,6 +151,7 @@ app.put('/patients/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 // Delete a patient
 app.delete('/patients/:id', async (req, res) => {
