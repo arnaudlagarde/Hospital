@@ -37,12 +37,34 @@ const DoctorList = () => {
   const renderDoctorItem = ({ item }) => {
     const isSelected = selectedDoctor && selectedDoctor.email === item.email;
 
+    const handleEdit = () => {
+      // Handle the edit functionality here
+      console.log('Edit doctor:', item);
+    };
+
+    const handleDelete = () => {
+      // Handle the delete functionality here
+      console.log('Delete doctor:', item);
+    };
+
     return (
       <TouchableOpacity
         style={[styles.doctorItem, isSelected && styles.selectedDoctorItem]}
         onPress={() => handleDoctorPress(item)}
       >
-        <Text style={styles.doctorName}>{item.firstName} {item.lastName}</Text>
+        <View style={styles.doctorHeader}>
+          <Text style={styles.doctorName}>{item.firstName} {item.lastName}</Text>
+          {isSelected && (
+            <View style={styles.actionsContainer}>
+              <TouchableOpacity style={styles.actionButton} onPress={handleEdit}>
+                <Text style={styles.actionButtonText}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.actionButton} onPress={handleDelete}>
+                <Text style={styles.actionButtonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
         {isSelected && (
           <View style={styles.detailsContainer}>
             <Text style={styles.detailsText}>Email: {item.email}</Text>
@@ -88,10 +110,30 @@ const styles = StyleSheet.create({
   selectedDoctorItem: {
     marginBottom: 0,
   },
+  doctorHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   doctorName: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
+  },
+  actionsContainer: {
+    flexDirection: 'row',
+  },
+  actionButton: {
+    backgroundColor: '#2980b9',
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginHorizontal: 4,
+  },
+  actionButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   detailsContainer: {
     marginTop: 8,
