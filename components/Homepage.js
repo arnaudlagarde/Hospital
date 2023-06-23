@@ -12,6 +12,7 @@ const HomePage = ({ route }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
   const [userFirstName, setUserFirstName] = useState('');
+  const [userRole, setUserRole] = useState('');
 
   const isFocused = useIsFocused();
 
@@ -27,10 +28,18 @@ const HomePage = ({ route }) => {
     if (storedFirstName) {
       setUserFirstName(storedFirstName);
     }
+    const storedRole = localStorage.getItem('role');
+    if (storedRole) {
+      setUserRole(storedRole);
+    }
   }, [isFocused]);
 
   const handleNavigatePatients = () => {
     navigation.navigate('Patients');
+  };
+
+  const handleNavigateDoctors = () => {
+    navigation.navigate('Doctors');
   };
 
   const handleLogin = () => {
@@ -63,6 +72,12 @@ const HomePage = ({ route }) => {
       {isLoggedIn && (
         <TouchableOpacity onPress={handleNavigatePatients}>
           <Text style={styles.patient}>Voir la liste des patients</Text>
+        </TouchableOpacity>
+      )}
+
+      {isLoggedIn && (userRole === "doctor" || userRole === "admin") && (
+        <TouchableOpacity onPress={handleNavigateDoctors}>
+          <Text style={styles.patient}>Voir la liste des médecins</Text>
         </TouchableOpacity>
       )}
       <Footer />

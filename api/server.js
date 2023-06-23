@@ -92,6 +92,16 @@ app.get('/users/admins', async (req, res) => {
   }
 });
 
+app.get('/users/admins/medecins', async (req, res) => {
+  try {
+    const admins = await Admins.find({ role: 'medecin' });
+    res.json(admins);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.post('/users/admins/verify', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -168,6 +178,25 @@ app.put('/patients/:id', async (req, res) => {
   }
 });
 
+// Update an admin
+app.put('/admins/:id', async (req, res) => {
+  try {
+    const { id } = req.params; // Change to { _id } instead of { id }
+    const { firstName, lastName } = req.body;
+    const updatedDoctor = await Admins.findOneAndUpdate(
+      { _id: id }, // Change to { _id: id } instead of { id }
+      { firstName, lastName },
+      { new: true }
+    );
+    if (!updatedDoctor) {
+      return res.status(404).json({ error: 'Doctor not found' });
+    }
+    res.json(updatedDoctor);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // Delete a patient
 app.delete('/patients/:id', async (req, res) => {
