@@ -23,13 +23,13 @@ const DoctorsScreen = () => {
   };
 
   const navigateToAddDoctor = () => {
-    navigation.navigate('AddDoctor');
+    navigation.navigate('AddDoctor', { handleAddDoctor });
   };
 
   return (
     <View>
       <Button title="Créer un nouveau médecin" onPress={navigateToAddDoctor} />
-      <AddDoctor onSubmit={handleAddDoctor}/>
+      <AddDoctor onSubmit={handleAddDoctor} />
       <DoctorList
         doctors={doctors}
         onDeleteDoctor={handleDeleteDoctor}
@@ -38,6 +38,5 @@ const DoctorsScreen = () => {
     </View>
   );
 };
-
 
 export default DoctorsScreen;
