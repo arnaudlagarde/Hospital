@@ -86,7 +86,7 @@ const PatientList = () => {
           </TouchableOpacity>
           <Text style={styles.modalTitle}>Modifier le Patient</Text>
           <React.Fragment>
-  {(localStorage.getItem("role") === "rh" || localStorage.getItem("admin")) && (
+  {(localStorage.getItem("role") === "rh" || localStorage.getItem("role") === "admin") && (
     <React.Fragment>
       <TextInput
         style={styles.input}
