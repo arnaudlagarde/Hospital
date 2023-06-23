@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
 import { Transition, Transitioning } from 'react-native-reanimated';
 import axios from 'axios';
 
@@ -14,6 +14,8 @@ const transition = (
 const DoctorList = () => {
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [editedDoctor, setEditedDoctor] = useState(null);
   const transitionRef = React.useRef();
 
   useEffect(() => {
@@ -34,13 +36,19 @@ const DoctorList = () => {
     setSelectedDoctor((prevDoctor) => (prevDoctor?.email === doctor.email ? null : doctor));
   };
 
+  const handleEdit = (doctor) => {
+    setEditedDoctor(doctor);
+    setModalVisible(true);
+  };
+
+  const handleSave = () => {
+    // Handle saving the edited doctor here
+    console.log('Save edited doctor:', editedDoctor);
+    setModalVisible(false);
+  };
+
   const renderDoctorItem = ({ item }) => {
     const isSelected = selectedDoctor && selectedDoctor.email === item.email;
-
-    const handleEdit = () => {
-      // Handle the edit functionality here
-      console.log('Edit doctor:', item);
-    };
 
     const handleDelete = () => {
       // Handle the delete functionality here
@@ -56,7 +64,7 @@ const DoctorList = () => {
           <Text style={styles.doctorName}>{item.firstName} {item.lastName}</Text>
           {isSelected && (
             <View style={styles.actionsContainer}>
-              <TouchableOpacity style={styles.actionButton} onPress={handleEdit}>
+              <TouchableOpacity style={styles.actionButton} onPress={() => handleEdit(item)}>
                 <Text style={styles.actionButtonText}>Edit</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.actionButton} onPress={handleDelete}>
@@ -86,6 +94,39 @@ const DoctorList = () => {
           keyExtractor={(item) => item.email}
         />
       </Transitioning.View>
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Edit Doctor</Text>
+            <TextInput
+              style={styles.modalInput}
+              placeholder="First Name"
+              value={editedDoctor?.firstName}
+              onChangeText={(text) => setEditedDoctor({ ...editedDoctor, firstName: text })}
+            />
+            <TextInput
+              style={styles.modalInput}
+              placeholder="Last Name"
+              value={editedDoctor?.lastName}
+              onChangeText={(text) => setEditedDoctor({ ...editedDoctor, lastName: text })}
+            />
+            <TextInput
+              style={styles.modalInput}
+              placeholder="Email"
+              value={editedDoctor?.email}
+              onChangeText={(text) => setEditedDoctor({ ...editedDoctor, email: text })}
+            />
+            {/* Add more input fields for other doctor details */}
+            <Button title="Save" onPress={handleSave} />
+            <Button title="Cancel" onPress={() => setModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -141,6 +182,29 @@ const styles = StyleSheet.create({
   detailsText: {
     fontSize: 16,
     marginBottom: 4,
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    padding: 16,
+    margin: 32,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  modalInput: {
+    backgroundColor: '#f5f5f5',
+    borderRadius: 4,
+    padding: 8,
+    marginBottom: 8,
   },
 });
 
