@@ -100,17 +100,38 @@ const DoctorList = () => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Edit Doctor</Text>
             <TextInput
-              style={styles.modalInput}
-              placeholder="First Name"
-              value={editedDoctor?.firstName}
-              onChangeText={(text) => setEditedDoctor({ ...editedDoctor, firstName: text })}
-            />
-            <TextInput
-              style={styles.modalInput}
-              placeholder="Last Name"
-              value={editedDoctor?.lastName}
-              onChangeText={(text) => setEditedDoctor({ ...editedDoctor, lastName: text })}
-            />
+    style={styles.modalInput}
+    placeholder="First Name"
+    value={editedDoctor?.firstName}
+    onChangeText={(text) => setEditedDoctor({ ...editedDoctor, firstName: text })}
+  />
+  <TextInput
+    style={styles.modalInput}
+    placeholder="Last Name"
+    value={editedDoctor?.lastName}
+    onChangeText={(text) => setEditedDoctor({ ...editedDoctor, lastName: text })}
+  />
+  <TextInput
+    style={styles.modalInput}
+    placeholder="Role"
+    value={editedDoctor?.role}
+    onChangeText={(text) => setEditedDoctor({ ...editedDoctor, role: text })}
+  />
+  <TextInput
+    style={styles.modalInput}
+    placeholder="Email"
+    value={editedDoctor?.email}
+    onChangeText={(text) => setEditedDoctor({ ...editedDoctor, email: text })}
+  />
+  <TextInput
+    style={styles.modalInput}
+    placeholder="Password"
+    value={editedDoctor?.password}
+    onChangeText={(text) => setEditedDoctor({ ...editedDoctor, password: text })}
+  />
+
+
+
             {/* Add more input fields for other properties */}
             <View style={styles.modalButtonContainer}>
               <Button title="Save" onPress={handleSave} />
