@@ -7,7 +7,7 @@ import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
 import AddPatient from './components/AddPatient';
 import DoctorList from './components/DoctorList';
-
+import DoctorAppointments from './components/DoctorAppointments';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +21,7 @@ const App = () => {
         <Stack.Screen name="Inscription" component={RegistrationForm} />
         <Stack.Screen name="AddPatient" component={AddPatient} />
         <Stack.Screen name="Doctors" component={DoctorList} />
+        <Stack.Screen name="DoctorAppointments" component={DoctorAppointments} />
       </Stack.Navigator>
     </NavigationContainer>
   );

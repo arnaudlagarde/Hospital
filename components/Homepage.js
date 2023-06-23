@@ -5,6 +5,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
+import DoctorAppointments from './DoctorAppointments';
 
 const HomePage = ({ route }) => {
   const navigation = useNavigation();
@@ -17,12 +18,12 @@ const HomePage = ({ route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    // Vérifiez si l'utilisateur est connecté lors du chargement du composant
+    // Check if the user is logged in during component loading
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     setIsLoggedIn(isAuthenticated);
-    const storedName = localStorage.getItem('nom'); // Récupérer le nom depuis le localStorage
+    const storedName = localStorage.getItem('nom');
     if (storedName) {
-      setUserName(storedName); // Stocker le nom dans l'état
+      setUserName(storedName);
     }
     const storedFirstName = localStorage.getItem('prenom');
     if (storedFirstName) {
@@ -50,11 +51,15 @@ const HomePage = ({ route }) => {
     navigation.navigate('Inscription');
   };
 
+  const handleNavigateAppointments = () => {
+    navigation.navigate('DoctorAppointments');
+  };
+
   return (
     <View style={styles.container}>
       <Image
         source={require('../assets/hospital.jpg')}
-        style={[styles.backgroundImage, { opacity: 0.4 }]} // Modifier l'opacité ici
+        style={[styles.backgroundImage, { opacity: 0.4 }]}
       />
 
       <Header
@@ -63,6 +68,7 @@ const HomePage = ({ route }) => {
         handleLogin={handleLogin}
         handleRegister={handleRegister}
       />
+
       {isLoggedIn && userName && (
         <Text style={styles.heading}>Bonjour {userName} {userFirstName}</Text>
       )}
@@ -80,6 +86,12 @@ const HomePage = ({ route }) => {
           <Text style={styles.patient}>Voir la liste des médecins</Text>
         </TouchableOpacity>
       )}
+      {isLoggedIn && (
+        <TouchableOpacity onPress={handleNavigateAppointments}>
+          <Text style={styles.appointments}>Voir mes rendez-vous</Text>
+        </TouchableOpacity>
+      )}
+
       <Footer />
     </View>
   );
@@ -90,6 +102,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   patient: {
+    left: '22%',
+    right: '50%',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textDecorationLine: 'underline',
+  },
+  appointments: {
     left: '22%',
     right: '50%',
     justifyContent: 'center',
