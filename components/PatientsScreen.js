@@ -27,7 +27,9 @@ const PatientsScreen = () => {
 
   return (
     <View>
+      {(localStorage.getItem('role') === "rh" || localStorage.getItem('role') === "admin") &&
       <Button title="Créer un nouveau patient" onPress={navigateToAddPatient} />
+      }
       <PatientList
         patients={patients}
         onDeletePatient={handleDeletePatient}

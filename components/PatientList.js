@@ -85,45 +85,54 @@ const PatientList = () => {
             <AntDesign name="close" size={24} color="#333" />
           </TouchableOpacity>
           <Text style={styles.modalTitle}>Modifier le Patient</Text>
-          <TextInput
-            style={styles.input}
-            value={editedFirstName}
-            onChangeText={setEditedFirstName}
-            placeholder="Prénom"
-          />
-          <TextInput
-            style={styles.input}
-            value={editedLastName}
-            onChangeText={setEditedLastName}
-            placeholder="Nom"
-          />
-          <TextInput
-            style={styles.input}
-            value={editedAge}
-            onChangeText={setEditedAge}
-            placeholder="Âge"
-            keyboardType="numeric"
-          />
-          <TextInput
-            style={styles.input}
-            value={editedWeight}
-            onChangeText={setEditedWeight}
-            placeholder="Poids (kg)"
-            keyboardType="numeric"
-          />
-          <TextInput
-            style={styles.input}
-            value={editedHeight}
-            onChangeText={setEditedHeight}
-            placeholder="Taille (cm)"
-            keyboardType="numeric"
-          />
-          <TextInput
-            style={styles.input}
-            value={editedTreatment}
-            onChangeText={setEditedTreatment}
-            placeholder="Traitement en cours"
-          />
+          <React.Fragment>
+  {(localStorage.getItem("role") === "rh" || localStorage.getItem("admin")) && (
+    <React.Fragment>
+      <TextInput
+        style={styles.input}
+        value={editedFirstName}
+        onChangeText={setEditedFirstName}
+        placeholder="Prénom"
+      />
+      <TextInput
+        style={styles.input}
+        value={editedLastName}
+        onChangeText={setEditedLastName}
+        placeholder="Nom"
+      />
+      <TextInput
+        style={styles.input}
+        value={editedAge}
+        onChangeText={setEditedAge}
+        placeholder="Âge"
+        keyboardType="numeric"
+      />
+      <TextInput
+        style={styles.input}
+        value={editedWeight}
+        onChangeText={setEditedWeight}
+        placeholder="Poids (kg)"
+        keyboardType="numeric"
+      />
+      <TextInput
+        style={styles.input}
+        value={editedHeight}
+        onChangeText={setEditedHeight}
+        placeholder="Taille (cm)"
+        keyboardType="numeric"
+      />
+    </React.Fragment>
+  )}
+  {(localStorage.getItem("role") === "doctor" &&
+  <TextInput
+    style={styles.input}
+    value={editedTreatment}
+    onChangeText={setEditedTreatment}
+    placeholder="Traitement en cours"
+  />
+  )}
+</React.Fragment>
+
           <Button title="Mettre à jour" onPress={handleUpdatePatient} />
           <Button title="Annuler" onPress={() => setIsModalVisible(false)} />
         </View>
