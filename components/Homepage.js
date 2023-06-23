@@ -80,26 +80,26 @@ const HomePage = ({ route }) => {
       <Content />
 
       {isLoggedIn && (
-        <TouchableOpacity onPress={handleNavigatePatients}>
-          <Text style={styles.patient}>Voir la liste des patients</Text>
+        <TouchableOpacity onPress={handleNavigatePatients} style={styles.button}>
+          <Text style={styles.buttonText}>Voir la liste des patients</Text>
         </TouchableOpacity>
       )}
 
       {isLoggedIn && userRole === "admin" && (
-        <TouchableOpacity onPress={handleNavigateDoctors}>
-          <Text style={styles.patient}>Voir la liste des médecins</Text>
+        <TouchableOpacity onPress={handleNavigateDoctors} style={styles.button}>
+          <Text style={styles.buttonText}>Voir la liste des médecins</Text>
         </TouchableOpacity>
       )}
 
       {isLoggedIn && userRole === "admin" && (
-        <TouchableOpacity onPress={handleNavigateRHs}>
-          <Text style={styles.patient}>Voir la liste des RHs</Text>
+        <TouchableOpacity onPress={handleNavigateRHs} style={styles.button}>
+          <Text style={styles.buttonText}>Voir la liste des RHs</Text>
         </TouchableOpacity>
       )}
 
       {isLoggedIn && userRole === "doctor" && (
-        <TouchableOpacity onPress={handleNavigateAppointments}>
-          <Text style={styles.appointments}>Voir mes rendez-vous</Text>
+        <TouchableOpacity onPress={handleNavigateAppointments} style={styles.button}>
+          <Text style={styles.buttonText}>Voir mes rendez-vous</Text>
         </TouchableOpacity>
       )}
 
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     left: '22%',
     right: '50%',
     justifyContent: 'center',
+    alignItems: 'center',
     fontWeight: 'bold',
     fontSize: 18,
     textDecorationLine: 'underline',
@@ -143,6 +144,17 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center',
   },
+  button: {
+    alignSelf: 'center',
+    marginBottom: 10,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+  },
+
 });
 
 export default HomePage;
