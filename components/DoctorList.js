@@ -16,6 +16,7 @@ const DoctorList = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [editedDoctor, setEditedDoctor] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const transitionRef = React.useRef();
 
   useEffect(() => {
@@ -60,6 +61,21 @@ const DoctorList = () => {
     }
   };
 
+  const handleSearch = () => {
+    // Implement search logic here based on the searchQuery
+    // Update the doctors list accordingly
+    // You can use the Array.filter method to filter the doctors based on the search query
+    // Example: const filteredDoctors = doctors.filter((doctor) => doctor.firstName.includes(searchQuery));
+
+    // Placeholder code to demonstrate the search functionality
+    const filteredDoctors = doctors.filter((doctor) =>
+      doctor.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doctor.lastName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    setDoctors(filteredDoctors);
+  };
+
   const renderDoctorItem = ({ item }) => {
     const isSelected = selectedDoctor && selectedDoctor.email === item.email;
   
@@ -88,6 +104,16 @@ const DoctorList = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Liste des Médecins</Text>
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search for a doctor"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          onSubmitEditing={handleSearch}
+        />
+        <Button title="Search" onPress={handleSearch} />
+      </View>
       <Transitioning.View ref={transitionRef} transition={transition}>
         <FlatList
           data={doctors}
@@ -100,38 +126,35 @@ const DoctorList = () => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Edit Doctor</Text>
             <TextInput
-    style={styles.modalInput}
-    placeholder="First Name"
-    value={editedDoctor?.firstName}
-    onChangeText={(text) => setEditedDoctor({ ...editedDoctor, firstName: text })}
-  />
-  <TextInput
-    style={styles.modalInput}
-    placeholder="Last Name"
-    value={editedDoctor?.lastName}
-    onChangeText={(text) => setEditedDoctor({ ...editedDoctor, lastName: text })}
-  />
-  <TextInput
-    style={styles.modalInput}
-    placeholder="Role"
-    value={editedDoctor?.role}
-    onChangeText={(text) => setEditedDoctor({ ...editedDoctor, role: text })}
-  />
-  <TextInput
-    style={styles.modalInput}
-    placeholder="Email"
-    value={editedDoctor?.email}
-    onChangeText={(text) => setEditedDoctor({ ...editedDoctor, email: text })}
-  />
-  <TextInput
-    style={styles.modalInput}
-    placeholder="Password"
-    value={editedDoctor?.password}
-    onChangeText={(text) => setEditedDoctor({ ...editedDoctor, password: text })}
-  />
-
-
-
+              style={styles.modalInput}
+              placeholder="First Name"
+              value={editedDoctor?.firstName}
+              onChangeText={(text) => setEditedDoctor({ ...editedDoctor, firstName: text })}
+            />
+            <TextInput
+              style={styles.modalInput}
+              placeholder="Last Name"
+              value={editedDoctor?.lastName}
+              onChangeText={(text) => setEditedDoctor({ ...editedDoctor, lastName: text })}
+            />
+            <TextInput
+              style={styles.modalInput}
+              placeholder="Role"
+              value={editedDoctor?.role}
+              onChangeText={(text) => setEditedDoctor({ ...editedDoctor, role: text })}
+            />
+            <TextInput
+              style={styles.modalInput}
+              placeholder="Email"
+              value={editedDoctor?.email}
+              onChangeText={(text) => setEditedDoctor({ ...editedDoctor, email: text })}
+            />
+            <TextInput
+              style={styles.modalInput}
+              placeholder="Password"
+              value={editedDoctor?.password}
+              onChangeText={(text) => setEditedDoctor({ ...editedDoctor, password: text })}
+            />
             {/* Add more input fields for other properties */}
             <View style={styles.modalButtonContainer}>
               <Button title="Save" onPress={handleSave} />
@@ -209,6 +232,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  searchInput: {
+    flex: 1,
+    marginRight: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
   },
 });
 
