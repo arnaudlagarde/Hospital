@@ -55,6 +55,10 @@ const HomePage = ({ route }) => {
     navigation.navigate('DoctorAppointments');
   };
 
+  const handleNavigateRHs = () => {
+    navigation.navigate('RHs');
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -81,12 +85,19 @@ const HomePage = ({ route }) => {
         </TouchableOpacity>
       )}
 
-      {isLoggedIn && (userRole === "doctor" || userRole === "admin") && (
+      {isLoggedIn && userRole === "admin" && (
         <TouchableOpacity onPress={handleNavigateDoctors}>
           <Text style={styles.patient}>Voir la liste des médecins</Text>
         </TouchableOpacity>
       )}
-      {isLoggedIn && (
+
+      {isLoggedIn && userRole === "admin" && (
+        <TouchableOpacity onPress={handleNavigateRHs}>
+          <Text style={styles.patient}>Voir la liste des RHs</Text>
+        </TouchableOpacity>
+      )}
+
+      {isLoggedIn && userRole === "doctor" && (
         <TouchableOpacity onPress={handleNavigateAppointments}>
           <Text style={styles.appointments}>Voir mes rendez-vous</Text>
         </TouchableOpacity>

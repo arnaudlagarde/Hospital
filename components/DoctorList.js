@@ -11,7 +11,7 @@ const DoctorList = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/users/admins');
+      const response = await axios.get('http://localhost:3000/doctors');
       setDoctors(response.data);
     } catch (error) {
       console.error(error);
